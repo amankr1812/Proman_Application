@@ -49,4 +49,14 @@ public class UserDao {
 	public void updateUser(final UserEntity updatedUserEntity){
 		   entityManager.merge(updatedUserEntity);
 		}
+	
+	public UserAuthTokenEntity getUserAuthToken(final String accessToken){
+		   try {
+		       return entityManager.createNamedQuery("userAuthTokenByAccessToken",
+		               UserAuthTokenEntity.class).setParameter("accessToken", accessToken).getSingleResult();
+		   } catch (NoResultException nre){
+		       return null;
+		   }
+
+		}
 }
